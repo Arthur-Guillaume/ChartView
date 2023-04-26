@@ -37,13 +37,24 @@ public struct AxisLabels<Content: View>: View {
     }
 
     func xAxis(chartWidth: CGFloat) -> some View {
-        HStack(spacing: 0.0) {
+        HStack() {
+            if axisLabelsStyle.axisLabelsYPosition == .leading {
+                Spacer(minLength: yAxisWidth)
+            }
             ForEach(Array(axisLabelsData.axisXLabels.enumerated()), id: \.element) { index, axisXData in
+//                if index != 0 {
+                    Spacer()
+//                }
                 Text(axisXData)
                     .font(axisLabelsStyle.axisFont)
-                    .foregroundColor(axisLabelsStyle.axisFontColor)
-                    .frame(width: chartWidth / CGFloat(axisLabelsData.axisXLabels.count - 1))
+//                    .foregroundColor(axisLabelsStyle.axisFontColor)
+                    .foregroundColor(Color.red)
+//                    .frame(width: chartWidth / CGFloat(axisLabelsData.axisXLabels.count - 1))
             }
+//            Spacer()
+                       if axisLabelsStyle.axisLabelsYPosition == .trailing {
+                    Spacer(minLength: yAxisWidth)
+                           }
         }
         .frame(height: 24.0, alignment: .top)
     }
@@ -62,13 +73,13 @@ public struct AxisLabels<Content: View>: View {
             HStack {
                 if axisLabelsStyle.axisLabelsYPosition == .leading {
                     yAxis
-                } else {
+                } /* else {
                     Spacer(minLength: yAxisWidth)
-                }
+                } */
                 chart
-                if axisLabelsStyle.axisLabelsYPosition == .leading {
-                    Spacer(minLength: yAxisWidth)
-                } else {
+                if axisLabelsStyle.axisLabelsYPosition == .trailing {
+//                    Spacer(minLength: yAxisWidth)
+//                } else {
                     yAxis
                 }
             }

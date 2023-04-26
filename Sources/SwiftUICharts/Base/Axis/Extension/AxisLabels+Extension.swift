@@ -32,7 +32,7 @@ extension AxisLabels {
     }
 
     public func setAxisXLabels(_ labels: [(Double, String)], range: ClosedRange<Int>) -> AxisLabels {
-        let overreach = range.overreach + 1
+        let overreach = range.overreach
         var labelArray = [String](repeating: "", count: overreach)
         labels.forEach {
             let index = Int($0.0) - range.lowerBound
