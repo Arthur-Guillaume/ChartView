@@ -37,24 +37,37 @@ public struct AxisLabels<Content: View>: View {
     }
 
     func xAxis(chartWidth: CGFloat) -> some View {
+        HStack(spacing: 0.0) {
+            if axisLabelsStyle.axisLabelsYPosition == .leading {
+                Spacer(minLength: yAxisWidth)
+            }
+            ForEach(Array(axisLabelsData.axisXLabels.enumerated()), id: \.element) { index, axisXData in
+                Text(axisXData)
+                    .font(axisLabelsStyle.axisFont)
+                    .foregroundColor(axisLabelsStyle.axisFontColor)
+                    .frame(width: chartWidth / CGFloat(axisLabelsData.axisXLabels.count - 1))
+            }
+            if axisLabelsStyle.axisLabelsYPosition == .trailing {
+                Spacer(minLength: yAxisWidth)
+            }
+        }
+        .frame(height: 24.0, alignment: .top)
+    }
+
+    func xAxis() -> some View {
         HStack() {
             if axisLabelsStyle.axisLabelsYPosition == .leading {
                 Spacer(minLength: yAxisWidth)
             }
             ForEach(Array(axisLabelsData.axisXLabels.enumerated()), id: \.element) { index, axisXData in
-//                if index != 0 {
-                    Spacer()
-//                }
+                Spacer()
                 Text(axisXData)
                     .font(axisLabelsStyle.axisFont)
-//                    .foregroundColor(axisLabelsStyle.axisFontColor)
-                    .foregroundColor(Color.red)
-//                    .frame(width: chartWidth / CGFloat(axisLabelsData.axisXLabels.count - 1))
+                    .foregroundColor(axisLabelsStyle.axisFontColor)
             }
-//            Spacer()
-                       if axisLabelsStyle.axisLabelsYPosition == .trailing {
-                    Spacer(minLength: yAxisWidth)
-                           }
+            if axisLabelsStyle.axisLabelsYPosition == .trailing {
+                Spacer(minLength: yAxisWidth)
+            }
         }
         .frame(height: 24.0, alignment: .top)
     }
@@ -73,13 +86,9 @@ public struct AxisLabels<Content: View>: View {
             HStack {
                 if axisLabelsStyle.axisLabelsYPosition == .leading {
                     yAxis
-                } /* else {
-                    Spacer(minLength: yAxisWidth)
-                } */
+                }
                 chart
                 if axisLabelsStyle.axisLabelsYPosition == .trailing {
-//                    Spacer(minLength: yAxisWidth)
-//                } else {
                     yAxis
                 }
             }
